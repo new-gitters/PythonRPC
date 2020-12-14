@@ -26,7 +26,7 @@ Follwing is the organization of this repository:
 
  
 
-- The crypto library is not implemented by us, we borrowed from this [source](https://hackernoon.com/how-to-use-aes-256-cipher-python-cryptography-examples-6tbh37cr)
+- The crypto library is not implemented by us, we borrowed it from this [source](https://hackernoon.com/how-to-use-aes-256-cipher-python-cryptography-examples-6tbh37cr)
 
 
 
@@ -40,7 +40,7 @@ Follwing is the organization of this repository:
 [2] Linux ubuntu 4.15.0-126-generic #129-Ubuntu SMP Mon Nov 23 18:53:38 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-- Third-party python libraries:
+- We used following third-party python libraries:
 
 ```
 [bayesian-optimization 1.2.0] pip3 install bayesian-optimization
@@ -50,11 +50,13 @@ https://pypi.org/project/bayesian-optimization/
 https://pypi.org/project/pycryptodomex/
 ```
 
-- How to run the test
+
+
+## A Simple Test
 
 ```bash
 # Change to test directory
-cd test
+$ cd test
 
 # In one terminal, start the test server
 # Notice that "python3" is required
@@ -63,6 +65,7 @@ $ python3 server.py --server=thread
 $ python3 server.py --server=threadpool
 
 # Open another terminal, start the test client
+# Notice that "python3" is required
 $ python3 client.py
 
 # You will see messages from both server and client side,
@@ -73,11 +76,74 @@ $ python3 client.py
 
 
 
+## Tutorial
+
+### server side
+
+```python
+from NaiveRPC import Function, FunctionPool, RegisterFunction
+from NaiveRPC import ThreadServer, ThreadPoolServer
+
+# Prepare your function(s) for RPC service
+def f():
+  return "A simple function"
+
+# Register your function(s)
+F = RegisterFunction(f, public=True, always_return=True)
+
+# Create a FunctionPool
+FP = FunctionPool("simple function pool")
+
+# Add the Function to the FunctionPool
+FP.add(F)
+
+# Create a server, specify FunctionPool and password
+server = ThreadServer("127.0.0.1", 1000, FunctionPool=FP, password="42")
+
+# Start the server
+server.start()
+```
+
+
+
+### client side
+
+```python
+from NaiveRPC import Client
+
+# Create a client and connect
+client = Client()
+client.connect('127.0.0.1', 10000)
+
+# Authentication
+client.authenticate("42")
+
+# Examine the basic information
+client.print()
+
+# Examine the detailed information
+client.print_all()
+
+# Execute a function
+client.execute("f()")
+
+# Close the client
+client.close()
+```
+
+
+
+### log
+
+- You should expect a well-formatted log which record the time of events, what are those events and where do they happened.
+
+
+
 ## Presentations
 
-- Presentation video: 
+- Presentation [video](https://rutgers.zoom.us/rec/play/2K4HxVup89GHZRfIY3hNg5io5trPCflvn2i3QHWBHXWVl1LRLATsmkGwW96ELEGs7QlrWJB2jS3Jtoyt.SzbCwkdaXyVZ7cOM?continueMode=true&_x_zm_rtaid=AK5aJ5hYQAawDkZcOTsKBw.1607975612936.42f85a688eddffc5daacb0ceb0041677&_x_zm_rhtaid=918)
 
-
+- Demostration [video](https://rutgers.zoom.us/rec/play/FkCpHaz5nWC7M0bH1isvsqtFVSMKZdh0_gNF65xoeMxnUdTNTsV8_g1RP0VdA_1gV9KkIGVSXXBUJQmt.WTQS8rKglKsHIat3?continueMode=true&_x_zm_rtaid=NvxQRyMgRFeqeMNfzhyUhw.1607978532139.734bc9a1e132abca9fd180e49bf369b2&_x_zm_rhtaid=603)
 
 
 
