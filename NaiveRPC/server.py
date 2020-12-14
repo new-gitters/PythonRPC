@@ -56,10 +56,6 @@ class Server(object):
         self.clients.clear()
         self.logger.info('[SERVER] {}:{} [CL] Closed'.format(self.host,self.port))
         print('[SERVER] {}:{} [CL] Closed'.format(self.host,self.port))
-        
-
-class OneTimeServer(Server):
-    pass
 
 
 class ThreadServer(Server):
