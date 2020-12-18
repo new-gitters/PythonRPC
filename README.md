@@ -46,7 +46,7 @@ Follwing is the organization of this repository:
 [bayesian-optimization 1.2.0] pip3 install bayesian-optimization
 https://pypi.org/project/bayesian-optimization/
 
-[pycryptodomex 3.9.9] pip3 install bayesian-optimization
+[pycryptodomex 3.9.9] pip3 install pycryptodomex==3.9.7
 https://pypi.org/project/pycryptodomex/
 ```
 
