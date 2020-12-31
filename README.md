@@ -1,5 +1,5 @@
-# NaiveRPC
-NaiveRPC, Rutgers CS 552 Course Project
+# PythonRPC
+PythonRPC, Rutgers CS 552 Course Project
 
 
 
@@ -10,7 +10,7 @@ Follwing is the organization of this repository:
 ```
 .
 ├── LICENSE
-├── NaiveRPC
+├── PythonRPC
 │   ├── __init__.py
 │   ├── client.py  # definition of Client class
 │   ├── crypto.py  # crypto library*
